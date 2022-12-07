@@ -13,29 +13,29 @@ const colorList = [
 
 let addButton = () => {
   let buttons = "";
-  //   for (let i = 0; i < colorList.length; i++) {
-  //     buttons += `
-  //      <button class=" color-button ${colorList[i]}" onclick="changeColor('house ${colorList[i]}') "> </button>
-  //   `;
-  //   }
-  colorList.forEach(function (e) {
-    buttons += ` <button class=" color-button ${e}" onclick = "changeColor('house ${e}') ">
-    <span id="arrow" class="display-none" onclick="aticveArrow()">
-  <i class="bx bxs-right-arrow"></i>
-</span>
-     </button>
+  colorList.forEach(function (e, i) {
+    buttons += ` <button class=" color-button ${e}" onclick = "changeColor('house ${e}, ${i}') ">
+                     <i class="bx bxs-right-arrow display-none" arrow-${i}></i>
+                 </button>
            `;
   });
-
   document.getElementById("colorContainer").innerHTML = buttons;
 };
 addButton();
 
-function changeColor(event) {
+function changeColor(event, indexT) {
   let element = document.getElementById("house");
   element.className = event;
-}
 
-function aticveArrow() {
-  const selected = document.querySelectorAll("#arrow");
+  const arrows = document.querySelectorAll(".bx");
+  // console.log(arrows);
+  for (let index = 0; index < arrows.length; index++) {
+    const arrow = arrows[index];
+    // console.log(arrow);
+    if (arrow.hasAttribute(`arrow-${indexT}`)) {
+      arrow.style.display = "block";
+      continue;
+    }
+    arrow.style.display = "none";
+  }
 }
